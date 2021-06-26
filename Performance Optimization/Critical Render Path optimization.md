@@ -13,3 +13,15 @@
 * Less specificity: more infomation give to browser, slower it runs
 
 <img src="Critical Render Path optimization.assets/Screen Shot 2021-06-25 at 7.14.08 PM.png" alt="Screen Shot 2021-06-25 at 7.14.08 PM" style="zoom:33%;" />
+
+<img src="Critical Render Path optimization.assets/Screen Shot 2021-06-26 at 3.51.35 PM.png" alt="Screen Shot 2021-06-26 at 3.51.35 PM" style="zoom:20%;" />
+
+* Use async only when JS code doesn't affect the dom, because dom hasn't been loaded
+* Avoid long running JS: such as window.alert()
+
+#### Additional:
+
+There is another technique that can be beneficial when optimizing websites. It is easy to misuse, and different browsers have different performance metrics for them. However, if you are interested and would like to read more about it, this is (In my opinion) the best resource on the topic:
+
+https://css-tricks.com/prefetching-preloading-prebrowsing/
+
