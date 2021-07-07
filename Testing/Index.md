@@ -16,7 +16,7 @@ Scaffolding | Assertion library | Test Runner | Spies, Mocks and Stubs | Code Co
 
 <img src="Index.assets/Screen Shot 2021-07-01 at 6.31.56 PM.png" alt="Screen Shot 2021-07-01 at 6.31.56 PM" style="zoom:50%;" />
 
-Create-react-app uses Just (Created by Facebook)
+Create-react-app uses Jest (Created by Facebook)
 
 <img src="Index.assets/Screen Shot 2021-07-01 at 6.37.03 PM.png" alt="Screen Shot 2021-07-01 at 6.37.03 PM" style="zoom:50%;" />
 
@@ -41,3 +41,11 @@ Because we want to test the entire process of UI, many companies hire people to 
 ------
 
 <img src="Index.assets/Screen Shot 2021-07-01 at 6.53.48 PM.png" alt="Screen Shot 2021-07-01 at 6.53.48 PM" style="zoom:50%;" />
+
+1. Jest_Testing
+2. Enzyme
+3. Snapshot Testing
+4. Testing Connected Components
+5. Testing Reducers
+6. Testing Actions
+
