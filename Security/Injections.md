@@ -13,6 +13,8 @@ Most important topic, covers almost 50% of security issues
 
 Put some html code into input of html page. i.e. scripts
 
+<img src="Injections.assets/Screen Shot 2021-08-23 at 3.21.40 PM.png" alt="Screen Shot 2021-08-23 at 3.21.40 PM" style="zoom:50%;" />
+
 ## Solution:
 
 1. Sanitize input
