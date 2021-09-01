@@ -30,11 +30,6 @@ services:
 		#	# The host name of database, because we cannot use localhost directly, we use the NAME of database service which is postgres
 		#	POSTGRES_HOST: postgres
 		
-			
-		# below means we want Backend API to link with postgres
-		# because each services dont know others exist, we need to link them together
-		links:
-			- postgres
 		ports:
 			- "3000:3000"
 		# volumes: can map the current folder on machine to the working directory. So that when we `docker-compose up` ,each time we change file and save in the machine folder, the content of correspond working directory  will be automatically update
@@ -50,7 +45,9 @@ services:
 			POSTGRES_HOST: postgres
 		# we dont need container_name because image has the name already, uncommon will show error
 		# container_name: postgres
-		image: postgres
+		# use below instead of "build" if we are not using Dockerfile to init image
+		# image: postgres
+		build: ./postgres
 		ports:
 			- "5432:5432"
 ```
@@ -91,7 +88,84 @@ Alternative:
 
 <img src="Docker Compose.assets/Screen Shot 2021-08-30 at 9.17.00 PM.png" alt="Screen Shot 2021-08-30 at 9.17.00 PM" style="zoom:50%;" />
 
-To
+## Database:
+
+In project folder, create a new folder named postgres, then create new `Dockerfile` and `deploy_schemas.sql`into this folder
+
+Create new folders in `postgres/` named `tables` and `seed`
+
+Create two new files in `tables/` : `login.sql` , `users.sql` and `seed.sql`
+
+### users.sql
+
+```sql
+BEGIN TRANSACTION;
+
+CREATE TABLE users (
+	id serial PRIMARY KEY,
+  name VARCHAR(100),
+  email text UNIQUE NOT NULL,
+  entries BIGINT DEFAULT 0,
+  joined TIMESTAMP NOT NULL
+);
+
+COMMIT;
+```
+
+`BEGIN TRANSACTION` and `COMMIT` makes sure if the code between them fails, ignore all of the code already run and make everything back to before.
+
+### login.sql
+
+```sql
+BEGIN TRANSACTION;
+
+CREATE TABLE login (
+	id serial PRIMARY KEY,
+  hash varchar(100) NOT NULL,
+  email text UNIQUE NOT NULL
+);
+
+COMMIT;
+```
+
+### seed.sql
+
+Create default user for testing purpose:
+
+```sql
+BEGIN TRANSACTION;
+
+INSERT into users (name, email, entries, joined ) values ('Jessie', 'jessie@gmail.com', 5, '2018-01-01');
+INSERT into login (hash, email) values ('PASSWORD HASHED BY BCRYPED HERE', 'jessie@gmail.com');
+
+COMMIT;
+```
+
+### deploy_schemas.sql
+
+```sql
+-- Deploy fresh database tables
+-- \i means to run scripts
+\i '/docker-entrypoint-initdb.d/tables/users.sql'
+\i '/docker-entrypoint-initdb.d/tables/login.sql'
+
+\i '/docker-entrypoint-initdb.d/seed/seed.sql'
+```
+
+#### Dockerfile
+
+```dockerfile
+FROM postgres: 10.3
+
+# Standard naming of postgres to extend this image according to postgres image documentation
+ADD /tables/ /docker-entrypoint-initdb.d/tables/
+ADD /seed/ /docker-entrypoint-initdb.d/seed/
+ADD deploy_schemas.sql /docker-entrypoint-initdb.d/tables/
+```
+
+## Note:
+
+After once we `docker-compose up --build` and no more changes of docker, we can use just `docker-compose up` to fast run the build.
 
 # Resources:
 
@@ -139,3 +213,10 @@ The "`createdb test` " command and the "`psql 'test'` " command are the same (at
 When it's first installed, PostgreSQL just has the 'postgres' user, and the way to initially enter PostgreSQL is by typing `sudo su - postgres` , and then `psql` . After Andrei creates the 'test' database, we can create a user with the same name as our current logged in user, to be a database administrator. This way we can just type in `psql 'test'` from the command line and enter the database without the need of logging in as the 'postgres' user, just like Andrei does in the lecture. This can be done with `CREATE USER your-user-name-here WITH SUPERUSER;` , and we can verify that he was created with `\du` . Now we can exit by typing `\q` and then `exit` , and enter our database just like Andrei does, with `psql 'test'` . 
 
 Lastly, with pgAdmin4 we need to create a connection with the server the first time we use it, and this is done by right-clicking 'Servers' on the left pane, and choosing 'Create' > 'Server'. We give our server a name, and in the 'Connection' tab we type in 'localhost' as the host, just like Andrei shows in the lecture, and press 'Save'. 
+
+### init.db File
+
+If you would like to learn more about creating tables in SQL, you can read up [this excellent post](http://joshualande.com/create-tables-sql).
+
+You can learn more about the` /docker-entrypoint-initdb.d ` which we used in the previous video in the official [library/postgres image documentation here.](https://hub.docker.com/_/postgres/)
+
