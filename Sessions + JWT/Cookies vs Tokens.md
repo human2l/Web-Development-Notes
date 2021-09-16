@@ -10,6 +10,8 @@ browser keep cookie session in header, server has to keep track the cookie in th
 
 when logout, session will destroyed both on browser and server
 
+<img src="Cookies vs Tokens.assets/Screen Shot 2021-09-15 at 4.29.15 PM.png" alt="Screen Shot 2021-09-15 at 4.29.15 PM" style="zoom:50%;" />
+
 # Token-Based Auth
 
 instead of send back token, server will send back JWT to browser
@@ -17,6 +19,8 @@ instead of send back token, server will send back JWT to browser
 token will be save in browser's local storage or session storage
 
 Stateless: server doesn't save token, server can validate token (after decoding) without store them. 
+
+<img src="Cookies vs Tokens.assets/Screen Shot 2021-09-15 at 4.28.09 PM.png" alt="Screen Shot 2021-09-15 at 4.28.09 PM" style="zoom:50%;" />
 
 ## Pros
 
@@ -45,3 +49,7 @@ Cookie based authentication and token based authentication is a complex topic wi
 2. https://stackoverflow.com/questions/17000835/token-authentication-vs-cookies
 
 3. https://scotch.io/bar-talk/why-jwts-suck-as-session-tokens
+
+### jwt.io
+
+https://jwt.io/
