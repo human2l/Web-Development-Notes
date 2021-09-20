@@ -28,3 +28,11 @@ const createSessions = (user) => {
 }
 ```
 
+<img src="Create and Send JWT.assets/Screen Shot 2021-09-20 at 6.25.32 PM.png" alt="Screen Shot 2021-09-20 at 6.25.32 PM" style="zoom:50%;" />
+
+Check if it has an authorization header (token in it)
+
+<img src="Create and Send JWT.assets/Screen Shot 2021-09-20 at 6.24.31 PM.png" alt="Screen Shot 2021-09-20 at 6.24.31 PM" style="zoom:50%;" />
+
+<img src="Create and Send JWT.assets/Screen Shot 2021-09-20 at 6.09.21 PM.png" alt="Screen Shot 2021-09-20 at 6.09.21 PM" style="zoom:50%;" />
+
