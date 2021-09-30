@@ -53,17 +53,93 @@ nano credentials
 
 ## serverless.yml
 
+```yaml
+#blahblah
+service: awsTest
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+  # you can overwrite defaults here
+  #  stage: prod
+  stage: dev
+  
+functions:
+  test:
+    handler: handler.test
+#blahblah
+```
 
 
 
+## handler.js
+
+stateless function, not store any data
+
+```js
+"use strict";
+
+module.exports.test = async (event) => {
+  return {
+    statusCode: 200,
+    body: JSON.stringify(
+      {
+        message: "Go Serverless v1.0! Your function executed successfully!",
+        input: event,
+      },
+      null,
+      2
+    ),
+  };
+```
 
 
 
+```bash
+sls deploy
+```
+
+<img src="Amazon Lambda.assets/Screen Shot 2021-09-30 at 6.34.56 PM.png" alt="Screen Shot 2021-09-30 at 6.34.56 PM" style="zoom:50%;" />
 
 
+```bash
+sls invoke --function [function name]
+```
 
+<img src="Amazon Lambda.assets/Screen Shot 2021-09-30 at 6.35.25 PM.png" alt="Screen Shot 2021-09-30 at 6.35.25 PM" style="zoom:50%;" />
 
+We can add a "local" `sls invoke local --function [function name]` which try and simulate the lambda function and run locally so that we won't get charged. 
 
+## serverless.yml
+
+```yaml
+#blahblah
+functions:
+  test:
+    handler: handler.test
+    events:
+      - httpApi:
+          path: /users/create
+          method: get
+#blahblah
+```
+
+After `sls deploy`, we have an endpoint:
+
+![Screen Shot 2021-09-30 at 6.47.36 PM](Amazon Lambda.assets/Screen Shot 2021-09-30 at 6.47.36 PM.png)
+
+which can be access by http request:
+
+<img src="Amazon Lambda.assets/Screen Shot 2021-09-30 at 6.48.35 PM.png" alt="Screen Shot 2021-09-30 at 6.48.35 PM" style="zoom:50%;" />
+
+# use parameters
+
+## handler.js
+
+<img src="Amazon Lambda.assets/Screen Shot 2021-09-30 at 7.50.59 PM.png" alt="Screen Shot 2021-09-30 at 7.50.59 PM" style="zoom:50%;" />
+
+<img src="../../../Library/Application Support/typora-user-images/Screen Shot 2021-09-30 at 7.51.34 PM.png" alt="Screen Shot 2021-09-30 at 7.51.34 PM" style="zoom:50%;" />
 
 # Resources:
 
