@@ -37,7 +37,7 @@ Check if browser support serviceWorker, if so, registration.
 1. Intercepts any request that made to the network, and check to see if it really need to communicate to the network.
 
 2. After service worker get the request from user that need to open a new screen, tries to access to the Cache API. If the content exist in the Cache API, the service worker return the new page to user, regardless of network activity.
-3. 4. If the file does not exist in Cache API, then talking to the network and get these files.
+3. If the file does not exist in Cache API, then talking to the network and get these files.
 
 <img src="Service Worker.assets/Screen Shot 2021-07-01 at 4.30.38 PM.png" alt="Screen Shot 2021-07-01 at 4.30.38 PM" style="zoom:50%;" />
 
