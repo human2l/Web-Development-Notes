@@ -10,5 +10,8 @@ Nginx is a reverse proxy to serve static files
 
 Most common way to loadbalancing is use services provided by AWS, DigitalOcean etc. Uncommon to code load balancer by ourselves, which is below:
 
+# NGINX
 
+# Resources
 
+To learn more about the NGINX config file have a look at: https://nginx.org/en/docs/ and https://www.linode.com/docs/web-servers/nginx/how-to-configure-nginx/
